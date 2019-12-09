@@ -28,25 +28,26 @@ function draw(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
   draw_ball();
   draw_paddle();
+  if(x+dx<ball_radius||x+dx>canvas.width-ball_radius){
+    dx*=-1;
+  }else if(y+dy<ball_radius){
+    dy*=-1;
+  }else if(y+dy>canvas.height-ball_radius){
+    if(x>paddlex&&x<paddlex+paddle_width){
+      dy*=-1;
+    }else{
+      alert("Game Over");
+      document.location.reload();
+      clearInterval(interval);
+    }
+  }
+  if(right_pressed&&paddlex<canvas.width-paddle_width){
+    paddlex+=7;
+  }else if(left_pressed&&paddlex>0){
+    paddlex-=7;
+  }
   x+=dx;
   y+=dy;
-  if(y+dy<ball_radius||y+dy>canvas.height-ball_radius){
-    dy = -dy;
-  }
-  if(x+dx<ball_radius||x+dx>canvas.width-ball_radius){
-    dx = -dx;
-  }
-  if(right_pressed){
-    paddlex+=7;
-    if(paddlex+paddle_width>canvas.width){
-      paddlex = canvas.width - paddle_width;
-    }
-  }else if(left_pressed){
-    paddlex-=7;
-    if(paddlex<0){
-      paddlex = 0;
-    }
-  }
 }
 document.addEventListener("keydown",keydown_handler,false);
 document.addEventListener("keyup",keyup_handler,false);
@@ -66,4 +67,4 @@ function keyup_handler(e){
     left_pressed = false;
   }
 }
-setInterval(draw,10);
+var interval = setInterval(draw,10);
