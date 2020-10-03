@@ -1,15 +1,22 @@
+//global canvas variables
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
+
+//ball variables
 var ballRadius = 10;
 var x = canvas.width/2;
 var y = canvas.height-30;
 var dx = 2;
 var dy = -2;
+
+//paddle variables
 var paddleHeight = 10;
 var paddleWidth = 75;
 var paddleX = (canvas.width-paddleWidth)/2;
 var rightPressed = false;
 var leftPressed = false;
+
+//brick variables
 var brickRowCount = 5;
 var brickColumnCount = 3;
 var brickWidth = 75;
@@ -32,6 +39,7 @@ document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("mousemove", mouseMoveHandler, false);
 
+//movement through keyboard
 function keyDownHandler(e) {
     if(e.key == "Right" || e.key == "ArrowRight") {
         rightPressed = true;
@@ -50,6 +58,7 @@ function keyUpHandler(e) {
     }
 }
 
+//movement through mouse
 function mouseMoveHandler(e) {
   var relativeX = e.clientX - canvas.offsetLeft;
   if(relativeX > 0 && relativeX < canvas.width) {
@@ -117,6 +126,7 @@ function drawLives() {
   ctx.fillText("Lives: "+lives, canvas.width-65, 20);
 }
 
+//main function including scoring 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawBricks();
